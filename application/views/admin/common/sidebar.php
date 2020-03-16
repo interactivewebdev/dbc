@@ -14,22 +14,20 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
+          <?php if(!!$this->session->userdata('user_id')){?>
           <li class="nav-item">
             <a href="<?php echo base_url('/admin/dashboard');?>" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>Dashboard</p>
             </a>
           </li>
-          <!-- <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
+          <li class="nav-item">
+            <a href="<?php echo base_url('/admin/sectors');?>" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
-              <p>
-                Widgets
-                <span class="right badge badge-danger">New</span>
-              </p>
+              <p>Sector</p>
             </a>
           </li>
-          <li class="nav-item has-treeview">
+          <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
@@ -515,6 +513,14 @@
               <p>Logout</p>
             </a>
           </li>
+          <?php }else{?>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link link-muted active">
+                <i class="nav-icon fas fa-sign-in-alt text-primary"></i>
+                <p>Login</p>
+              </a>
+            </li>
+          <?php }?>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

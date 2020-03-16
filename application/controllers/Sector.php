@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/BaseController.php';
 
-class Admin extends BaseController {
+class Sector extends BaseController {
 
 	/**
 	 * Index Page for this controller.
@@ -22,10 +22,16 @@ class Admin extends BaseController {
 	 */
 	public function index()
 	{
-        $this->loadAdminViews('admin/login', $this->global, NULL , NULL);
-	}
+        $data['sectors'] = $this->db->from('category')->order_by('created_at', 'DESC')->get()->result();
+        $this->loadAdminViews('admin/sector/list', $this->global, $data , NULL);
+    }
+    
+    public function addForm()
+    {
+        $this->loadAdminViews('admin/sector/addNewForm', $this->global, NULL, NULL);
+    }
 	
-	public function postLogin()
+	public function addNewSector()
 	{
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required',
@@ -58,15 +64,5 @@ class Admin extends BaseController {
 				redirect('/admin/login');
 			}
 		}
-	}
-    
-    public function dashboard()
-	{
-        $this->loadAdminViews('admin/dashboard', $this->global, NULL , NULL);
-    }
-    
-    public function logout()
-	{
-        $this->loadAdminViews('admin/dashboard', $this->global, NULL , NULL);
 	}
 }

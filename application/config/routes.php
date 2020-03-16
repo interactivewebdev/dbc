@@ -55,5 +55,10 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['admin'] = 'Admin/index';
 $route['admin/login'] = 'Admin/index';
+$route['admin/postLogin'] = 'Admin/postLogin';
 $route['admin/logout'] = 'Admin/logout';
+
 $route['admin/dashboard'] = 'Admin/dashboard';
+
+$route['admin/sectors'] = 'Sector/index';
+$route['admin/sectors/new'] = 'Sector/addForm';

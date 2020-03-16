@@ -37,14 +37,17 @@
                         <div id="login-row" class="row">
                             <div id="login-column" class="col-md-6">
                                 <div id="login-box" class="col-md-12">
-                                    <form id="login-form" class="form" action="" method="post">
+                                    <form id="login-form" class="form" action="<?php echo base_url('/admin/postLogin');?>" method="post">
+                                        <?php if($this->session->flashdata('error') != ''){?>
+                                          <div class="alert alert-danger"><?php echo $this->session->flashdata('error');?></div>
+                                        <?php }?>
                                         <div class="form-group">
                                             <label for="username" class="text-info">Username:</label><br>
                                             <input type="text" name="username" id="username" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="password" class="text-info">Password:</label><br>
-                                            <input type="text" name="password" id="password" class="form-control">
+                                            <input type="password" name="password" id="password" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="remember-me" class="text-info"><span>Remember me</span> <span><input id="remember-me" name="remember-me" type="checkbox"></span></label><br>
