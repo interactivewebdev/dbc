@@ -62,3 +62,8 @@ $route['admin/dashboard'] = 'Admin/dashboard';
 
 $route['admin/sectors'] = 'Sector/index';
 $route['admin/sectors/new'] = 'Sector/addForm';
+$route['admin/sectors/addnew'] = 'Sector/addNewSector';
+$route['admin/update/category/(:any)'] = 'Sector/update/$1';
+$route['admin/delete/category/(:any)'] = 'Sector/delete/$1';
+$route['admin/active/category/(:any)'] = 'Sector/changeStatus/$1/1';
+$route['admin/deactive/category/(:any)'] = 'Sector/changeStatus/$1/0';

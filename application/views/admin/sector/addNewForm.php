@@ -30,21 +30,33 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form">
+              <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('/admin/sectors/addnew');?>">
+                <?php if($this->session->flashdata('error') != ''){?>
+                  <div class="alert alert-danger"><?php echo $this->session->flashdata('error');?></div>
+                <?php }?>
                 <div class="card-body">
+                <div class="form-group">
+                    <label for="parent">Parent</label>
+                    <select name="parent" class="form-control" id="parent">
+                      <option value="">--</option>
+                      <?php foreach($parent_categories as $rec){?>
+                      <option value="<?php echo $rec->category_id;?>"><?php echo $rec->title;?></option>
+                      <?php }?>
+                    </select>
+                  </div>
                   <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" placeholder="Enter title">
+                    <input type="text" class="form-control" name="title" id="title" placeholder="Enter title">
                   </div>
                   <div class="form-group">
                     <label for="desc">Description</label>
-                    <textarea class="form-control" id="desc" placeholder="Description"></textarea>
+                    <textarea class="form-control" id="desc" name="description" placeholder="Description"></textarea>
                   </div>
                   <div class="form-group">
                     <label for="image">Upload Image</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="image">
+                        <input type="file" class="custom-file-input" id="image" name="image">
                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                       </div>
                     </div>

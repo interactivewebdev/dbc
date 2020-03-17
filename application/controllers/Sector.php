@@ -3,66 +3,84 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 require APPPATH . '/libraries/BaseController.php';
 
-class Sector extends BaseController {
+class Sector extends BaseController 
+{
 
 	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+     * This is default constructor of the class
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('category_model');
+        $this->isLoggedIn();   
+    }
+
 	public function index()
 	{
-        $data['sectors'] = $this->db->from('category')->order_by('created_at', 'DESC')->get()->result();
-        $this->loadAdminViews('admin/sector/list', $this->global, $data , NULL);
+		$data['sectors'] = $this->category_model->getCategories();
+		$this->loadAdminViews('admin/sector/list', $this->global, $data , NULL);
     }
     
     public function addForm()
     {
-        $this->loadAdminViews('admin/sector/addNewForm', $this->global, NULL, NULL);
+		$data['parent_categories'] = $this->category_model->getParentCategories();
+        $this->loadAdminViews('admin/sector/addNewForm', $this->global, $data, NULL);
     }
 	
 	public function addNewSector()
 	{
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required',
-				array('required' => 'You must provide a %s.')
-		);
+		$this->form_validation->set_rules('title', 'Title', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('error', 'Login failed due to incorrect login credential.');
-			redirect('/admin/login');
+			$this->session->set_flashdata('error', 'Title is not given.');
+			redirect('/admin/sectors/new');
 		} else {
-
-			$login_found = $this->db->from('admin')->where(array(
-				'username' => $this->input->post('username'),
-				'password' => base64_encode($this->input->post('password'))
-			))->count_all_results();
-
-			if($login_found > 0) {
-				$login_data = $this->db->from('admin')->where(array(
-					'username' => $this->input->post('username'),
-					'password' => base64_encode($this->input->post('password'))
-				))->get()->row();
-
-				$this->session->set_userdata('user_id', $login_data->id);
-				$this->session->set_userdata('name', $login_data->name);
-				$this->session->set_userdata('username', $login_data->username);
-
-				redirect('/admin/dashboard');
-			} else {
-				$this->session->set_flashdata('error', 'Login failed due to incorrect login credential.');
-				redirect('/admin/login');
+			$filename = '';
+			
+			if($_FILES['image']['name'] != '') {
+				$files = pathinfo($_FILES['image']['name']);
+				$filename = time().".".$files['extension'];
 			}
+
+			$config['upload_path']      = 'uploads/';
+			$config['allowed_types']    = 'gif|jpg|png';
+			$config['max_size']         = 100;
+			$config['file_name'] 		= $filename;
+			//$config['max_width']            = 1024;
+			//$config['max_height']           = 768;
+
+			$this->upload->initialize($config);
+
+			$post_image = '';
+			if ($this->upload->do_upload('image'))
+			{
+				$data = array('upload_data' => $this->upload->data());
+				$post_image = base_url('uploads/'.$data['upload_data']['file_name']);			
+			}
+
+			$data = array(
+				'title' => $this->input->post('title'),
+				'description' => $this->input->post('description'),
+				'image' => $post_image,
+				'parent_id' => $this->input->post('parent')
+			);
+
+			$this->category_model->addcategory($data);
+	
+			redirect('/admin/sectors');			
 		}
+	}
+
+	public function update($category_id) {
+		echo $category_id;
+	}
+
+	public function delete($category_id) {
+		echo $category_id;
+	}
+
+	public function changeStatus($category_id, $status) {
+		echo $category_id.'-'.$status;
 	}
 }

@@ -51,6 +51,7 @@ class Admin extends BaseController {
 				$this->session->set_userdata('user_id', $login_data->id);
 				$this->session->set_userdata('name', $login_data->name);
 				$this->session->set_userdata('username', $login_data->username);
+				$this->session->set_userdata('isLoggedIn', true);
 
 				redirect('/admin/dashboard');
 			} else {

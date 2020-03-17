@@ -34,29 +34,40 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Title</th>
+                      <th style="width: 15%">Title</th>
                       <th>Image</th>
-                      <th>Parent</th>
+                      <th style="width: 15%">Parent</th>
                       <th>Order</th>
                       <th>Status</th>
                       <th>Created At</th>
                       <th>Last modified</th>
+                      <th style="width: 18%">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php if(count($sectors) > 0)  {?>
-                        <?php foreach($sectors as $row) {?>
+                        <?php $srno = 1;
+                        foreach($sectors as $row) {?>
                         <tr>
-                        <td>1.</td>
-                        <td>Update software</td>
-                        <td>
-                            <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                            </div>
-                        </td>
-                        <td><span class="badge bg-danger">55%</span></td>
+                          <td><?php echo $srno;?>.</td>
+                          <td><?php echo $row->title;?></td>
+                          <td><img src="<?php echo $row->image;?>" width="50"></td>
+                          <td><?php echo $row->parent;?></td>
+                          <td><?php echo $row->order_by;?></td>
+                          <td><?php echo $row->category_status;?></td>
+                          <td><?php echo $row->created;?></td>
+                          <td><?php echo $row->last_modified;?></td>
+                          <td>
+                            <a href="<?php echo base_url('/admin/update/category/'.$row->category_id);?>" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="<?php echo base_url('/admin/delete/category/'.$row->category_id);?>" class="btn btn-sm btn-danger"><i class="fas fa-trash-alt"></i> Delete</a>
+                            <?php if($row->status == 0) {?>
+                              <a href="<?php echo base_url('/admin/active/category/'.$row->category_id);?>" class="btn btn-sm btn-default"><i class="far fa-plus-square"></i> Active</a>
+                            <?php } else {?>
+                              <a href="<?php echo base_url('/admin/deactive/category/'.$row->category_id);?>" class="btn btn-sm btn-default"><i class="far fa-minus-square"></i> Deactive</a>
+                            <?php }?>
+                          </td>
                         </tr>
-                        <?php }?>
+                        <?php $srno++; }?>
                     <?php }else{?>
                         <tr><td colspan="100%">No sectors added yet...</td></tr>
                     <?php }?>

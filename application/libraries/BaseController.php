@@ -8,12 +8,45 @@
  * @since : 01 March 2020
  */
 class BaseController extends CI_Controller {
-	protected $role = '';
-	protected $vendorId = '';
+	protected $user_id = '';
 	protected $name = '';
-	protected $roleText = '';
+	protected $username = '';
 	protected $global = array ();
-	protected $lastLogin = '';
+    protected $lastLogin = '';
+    
+    /**
+	 * This function used to check the user is logged in or not
+	 */
+	function isLoggedIn() {
+		$isLoggedIn = $this->session->userdata ( 'isLoggedIn' );
+		
+		if (! isset ( $isLoggedIn ) || $isLoggedIn != TRUE) {
+			redirect ( 'login' );
+		} else {
+			$this->user_id = $this->session->userdata ( 'user_id' );
+			$this->name = $this->session->userdata ( 'name' );
+			$this->username = $this->session->userdata ( 'username' );
+			
+			$this->global ['user_id'] = $this->user_id;
+			$this->global ['name'] = $this->name;
+			$this->global ['username'] = $this->username;
+		}
+	}
+	
+	/**
+	 * This function is used to check the access
+	 */
+	function isAdmin() 
+	{
+		if ($this->role != ROLE_DATAADMIN) 
+		{
+			return true;
+		} 
+		else 
+		{
+			return false;
+		}
+	}
 	
 	/**
 	 * Takes mixed data and optionally a status code, then creates the response
