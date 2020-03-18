@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>dist/css/adminlte.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- jQuery -->
+  <script src="<?php echo base_url(); ?>plugins/jquery/jquery.min.js"></script>
 </head>
 <!--
 BODY TAG OPTIONS:

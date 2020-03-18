@@ -15,16 +15,16 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="<?php echo base_url(); ?>plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="<?php echo base_url(); ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE -->
 <script src="<?php echo base_url(); ?>dist/js/adminlte.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
+<?php if(base_url('/admin/dashboard') == current_url()){?>
 <script src="<?php echo base_url(); ?>plugins/chart.js/Chart.min.js"></script>
 <script src="<?php echo base_url(); ?>dist/js/demo.js"></script>
 <script src="<?php echo base_url(); ?>dist/js/pages/dashboard3.js"></script>
+<?php }?>
 </body>
 </html>

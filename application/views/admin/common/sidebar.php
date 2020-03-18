@@ -27,6 +27,24 @@
               <p>Sector</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('/admin/faq');?>" class="nav-link">
+              <i class="fas fa-question"></i>
+              <p>FAQ</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('/admin/news');?>" class="nav-link">
+              <i class="far fa-newspaper"></i>
+              <p>News</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?php echo base_url('/admin/blogs');?>" class="nav-link">
+              <i class="fas fa-blog"></i>
+              <p>Blog</p>
+            </a>
+          </li>
           <!-- <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>

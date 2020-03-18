@@ -12,7 +12,7 @@ class Sector extends BaseController
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('category_model');
+        $this->load->model('news_model');
         $this->isLoggedIn();   
     }
 
