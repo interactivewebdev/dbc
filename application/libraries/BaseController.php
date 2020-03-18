@@ -21,7 +21,7 @@ class BaseController extends CI_Controller {
 		$isLoggedIn = $this->session->userdata ( 'isLoggedIn' );
 		
 		if (! isset ( $isLoggedIn ) || $isLoggedIn != TRUE) {
-			redirect ( 'login' );
+			redirect ( '/admin/login' );
 		} else {
 			$this->user_id = $this->session->userdata ( 'user_id' );
 			$this->name = $this->session->userdata ( 'name' );
